@@ -1,7 +1,6 @@
 package main;
 
 import list.List;
-import list.node.Node;
 
 public class Main {
 
@@ -13,10 +12,19 @@ public class Main {
 	}
 
 	private Main() {
-		List<Integer> list = new List<Integer>();
-		list.add(5);
-		list.add(4);
-		list.add(123);
+		List<List> list = new List<List>();
+
+		List<Integer> list1 = new List<Integer>();
+		list1.add(4);
+		list1.add(2);
+
+		List<String> list2 = new List<String>();
+		list2.add("Apple");
+		list2.add("Banana");
+
+		list.add(list1);
+		list.add(list2);
+
 		System.out.println(list);
 	}
 

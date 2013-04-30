@@ -48,10 +48,10 @@ public class List<T> {
 		String listToString = "[";
 		if (headNode != null) {
 			Node<T> node = headNode;
-			listToString += node.getElement();
+			listToString += node.getElement().toString();
 			node = node.getNextNode();
 			while (node != null) {
-				listToString += ", " + node.getElement();
+				listToString += ", " + node.getElement().toString();
 				node = node.getNextNode();
 			}
 		}
