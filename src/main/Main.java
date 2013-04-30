@@ -1,8 +1,5 @@
 package main;
 
-import list.List;
-import list.node.Node;
-
 public class Main {
 
     /*
