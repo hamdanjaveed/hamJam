@@ -1,5 +1,8 @@
 package main;
 
+import list.List;
+import list.node.Node;
+
 public class Main {
 
 	/*
@@ -10,7 +13,11 @@ public class Main {
 	}
 
 	private Main() {
-
+		List<Integer> list = new List<Integer>();
+		list.add(5);
+		list.add(4);
+		list.add(123);
+		System.out.println(list);
 	}
 
 }
