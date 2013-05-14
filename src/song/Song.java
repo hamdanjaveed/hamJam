@@ -8,8 +8,8 @@ public class Song {
 
 	// the name or title of the song
 	private String nameOfSong;
-	// the length of the song in seconds
-	private int timeInSeconds;
+	// the year of release
+	private int yearReleased;
 	// the artist of the song
 	private String artist;
 	// the album this song belongs too
@@ -22,10 +22,10 @@ public class Song {
 	/*
 	 * Create a new Song with the specified attributes.
 	 * */
-	public Song(String nameOfSong, int timeInSeconds, String artist, String album, String genre) {
+	public Song(String nameOfSong, int yearReleased, String artist, String album, String genre) {
 		// assign variables
 		setNameOfSong(nameOfSong);
-		setTimeInSeconds(timeInSeconds);
+		setYearReleased(yearReleased);
 		setArtist(artist);
 		setAlbum(album);
 		setGenre(genre);
@@ -40,12 +40,12 @@ public class Song {
 		this.nameOfSong = nameOfSong;
 	}
 
-	public int getTimeInSeconds() {
-		return timeInSeconds;
+	public int getYearReleased() {
+		return yearReleased;
 	}
 
-	public void setTimeInSeconds(int timeInSeconds) {
-		this.timeInSeconds = timeInSeconds;
+	public void setYearReleased(int yearReleased) {
+		this.yearReleased = yearReleased;
 	}
 
 	public String getArtist() {
