@@ -75,6 +75,34 @@ public class List<T> {
 		return lastNode;
 	}
 
+	public int size() {
+		int size = 0;
+		Node<T> n = headNode;
+		if (n != null) {
+			size++;
+			while (n.getNextNode() != null) {
+				size++;
+				n = n.getNextNode();
+			}
+		}
+		return size;
+	}
+
+	public T get(int index) {
+		Node<T> n = headNode;
+		if (index < size() || n == null) {
+				int cIndex = 0;
+				for (;cIndex != index; cIndex++) {
+					if (n.getNextNode() != null) {
+						n = n.getNextNode();
+					}
+				}
+			return n.getElement();
+		} else {
+			return null;
+		}
+	}
+
 	// getters and setters
 
 	public Node<T> getHeadNode() {
