@@ -9,11 +9,18 @@ import list.List;
  * */
 public class Playlist extends List {
 
+	private String name;
+
 	/*
 	 * Creates an empty playlist.
 	 * */
-	public Playlist() {
+	public Playlist(String name) {
 		super();
+		this.name = name;
+	}
+
+	public String getName() {
+		return name;
 	}
 
 }
