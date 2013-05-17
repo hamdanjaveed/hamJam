@@ -10,8 +10,8 @@ public class Main {
 
 	private static final String makePlaylistHelpString = "mkpl [-n|-name] <name>";
 	private static final String listHelpString         = "ls [-p]";
-	private static final String helpHelpString         = "help\n         help <cmd>";
-	private static final String makeSongHelpString     = "";
+	private static final String helpHelpString         = "help\n  help <cmd>";
+	private static final String makeSongHelpString     = "mksong [-n] <name> [-y] <year> [-ar] <artist> [-al] <album> -g <genre> -r <rating> -p <playlist>";
 
 	private Scanner scanner;
 
@@ -66,7 +66,8 @@ public class Main {
 
 	private void executeCommandMakeSong(String input, List<String> arguments, List<String> parameters) {
 		System.out.println(arguments);
-		System.out.println(arguments.contains("-n"));
+		System.out.println(arguments.contains("-y"));
+		System.out.println(arguments.contains("-p"));
 		if (!arguments.contains("-n") || !arguments.contains("-y") || !arguments.contains("-ar") || !arguments.contains("-al") || !arguments.contains("-g") || !arguments.contains("-r") || !arguments.contains("-p")) {
 			System.out.println("$ Insufficient arguments to make song, See help mksong for more information");
 		} else if (parameters.size() < 7) {
@@ -86,7 +87,7 @@ public class Main {
 				Song song = new Song(getParameterForArgument(input, "-n"), Integer.parseInt(getParameterForArgument(input, "-y")), getParameterForArgument(input, "-ar"), getParameterForArgument(input, "-al"), getParameterForArgument(input, "-g"));
 				playlists.get(index).add(song);
 			} else {
-				System.out.println("$ Playlist does not exist");
+				System.out.println("$ Playlist does not exist, See help mkpl for more information");
 			}
 		}
 	}
@@ -103,20 +104,26 @@ public class Main {
 				System.out.println("$ usage: " + listHelpString);
 			} else if (parameters.get(0).equals("help")) {
 				System.out.println("$ usage: " + helpHelpString);
+			} else if (parameters.get(0).equals("mksong")) {
+				System.out.println("$ usage: " + makeSongHelpString);
 			}
 		}
 	}
 
 	private void executeCommandList(List<String> arguments) {
-		if (arguments.get(0).equals("-p")) {
-			if (playlists.size() > 0) {
-				System.out.println("$ " + playlists.get(0).getName());
-				for (int i = 1; i < playlists.size(); i++) {
-					System.out.println("  " + playlists.get(i).getName());
+		if (arguments.size() > 0) {
+			if (arguments.get(0).equals("-p")) {
+				if (playlists.size() > 0) {
+					System.out.println("$ " + playlists.get(0).getName());
+					for (int i = 1; i < playlists.size(); i++) {
+						System.out.println("  " + playlists.get(i).getName());
+					}
+				} else {
+					System.out.println("$ No playlists");
 				}
-			} else {
-				System.out.println("$ No playlists");
 			}
+		} else {
+			System.out.println("$ Insufficient arguments to list, See help ls for more information");
 		}
 	}
 

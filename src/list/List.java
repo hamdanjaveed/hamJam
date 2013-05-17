@@ -98,6 +98,7 @@ public class List<T> {
 			}
 			while (n.getNextNode() != null) {
 				n = n.getNextNode();
+				e = n.getElement();
 				if (e.equals(n.getElement())) {
 					contains = true;
 				}
