@@ -88,6 +88,25 @@ public class List<T> {
 		return size;
 	}
 
+	public boolean contains(T element) {
+		boolean contains = false;
+		Node<T> n = headNode;
+		if (n != null) {
+			T e = n.getElement();
+			if (e.equals(element)) {
+				contains = true;
+			}
+			while (n.getNextNode() != null) {
+				n = n.getNextNode();
+				e = n.getElement();
+				if (e.equals(n.getElement())) {
+					contains = true;
+				}
+			}
+		}
+		return contains;
+	}
+
 	public T get(int index) {
 		Node<T> n = headNode;
 		if (index < size() || n == null) {

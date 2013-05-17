@@ -2,10 +2,16 @@ package main;
 
 import list.List;
 import list.playlist.Playlist;
+import song.Song;
 
 import java.util.Scanner;
 
 public class Main {
+
+	private static final String makePlaylistHelpString = "mkpl [-n|-name] <name>";
+	private static final String listHelpString         = "ls [-p]";
+	private static final String helpHelpString         = "help\n  help <cmd>";
+	private static final String makeSongHelpString     = "mksong [-n] <name> [-y] <year> [-ar] <artist> [-al] <album> -g <genre> -r <rating> -p <playlist>";
 
 	private Scanner scanner;
 
@@ -44,29 +50,69 @@ public class Main {
 				System.out.println("$ Terminating...");
 				break;
 			} else if (command.equals("mkpl")) {
-				// make a playlist
-				if (arguments.size() == 0) {
-					// no args
-					System.out.println("$ Insufficient arguments to make playlist, See help mkpl for more information");
-				} else if (parameters.size() == 0) {
-					// no params
-					System.out.println("$ Insufficient parameters to make playlist, See help mkpl for more information");
-				} else {
-					// at least 1 arg and param
-					if (arguments.get(0).equals("-n") || arguments.get(0).equals("-name")) {
-						// good arg and param
-						String pName = parameters.get(0);
-						for (int i = 1; i < parameters.size(); i++) {
-							pName += " " + parameters.get(i);
-						}
-						playlists.add(new Playlist(pName));
-					} else {
-						// bad argument
-						System.out.println("$ Unknown argument");
-						System.out.println("$ usage: mkpl [-n|-name]");
-					}
-				}
+				executeCommandMakePlaylist(arguments, parameters);
 			} else if (command.equals("ls")) {
+				executeCommandList(arguments);
+			} else if (command.equals("help")) {
+				executeCommandHelp(parameters);
+			} else if (command.equals("mksong")) {
+				executeCommandMakeSong(input, arguments, parameters);
+			} else {
+				// bad command entered
+				System.out.println("$ Unknown command, See help for more information");
+			}
+		}
+	}
+
+	private void executeCommandMakeSong(String input, List<String> arguments, List<String> parameters) {
+		System.out.println(arguments);
+		System.out.println(arguments.contains("-y"));
+		System.out.println(arguments.contains("-p"));
+		if (!arguments.contains("-n") || !arguments.contains("-y") || !arguments.contains("-ar") || !arguments.contains("-al") || !arguments.contains("-g") || !arguments.contains("-r") || !arguments.contains("-p")) {
+			System.out.println("$ Insufficient arguments to make song, See help mksong for more information");
+		} else if (parameters.size() < 7) {
+			System.out.println("$ Insufficient parameters to make song, See help mksong for more information");
+		} else {
+			boolean playlistExists = false;
+			int index = 0;
+			for (int i = 0; i < playlists.size(); i++) {
+				if (playlists.get(i).getName().equals(getParameterForArgument(input, "-p"))) {
+					playlistExists = true;
+					index = i;
+					break;
+				}
+			}
+			if (playlistExists) {
+				// create song and add to playlist
+				Song song = new Song(getParameterForArgument(input, "-n"), Integer.parseInt(getParameterForArgument(input, "-y")), getParameterForArgument(input, "-ar"), getParameterForArgument(input, "-al"), getParameterForArgument(input, "-g"));
+				playlists.get(index).add(song);
+			} else {
+				System.out.println("$ Playlist does not exist, See help mkpl for more information");
+			}
+		}
+	}
+
+	private void executeCommandHelp(List<String> parameters) {
+		if (parameters.size() == 0) {
+			System.out.println("$ List of Commands:");
+			System.out.println("$ " + makePlaylistHelpString + "\n  " + listHelpString + "\n  " + helpHelpString);
+		} else {
+			// help of a particular command
+			if (parameters.get(0).equals("mkpl")) {
+				System.out.println("$ usage: " + makePlaylistHelpString);
+			} else if (parameters.get(0).equals("ls")) {
+				System.out.println("$ usage: " + listHelpString);
+			} else if (parameters.get(0).equals("help")) {
+				System.out.println("$ usage: " + helpHelpString);
+			} else if (parameters.get(0).equals("mksong")) {
+				System.out.println("$ usage: " + makeSongHelpString);
+			}
+		}
+	}
+
+	private void executeCommandList(List<String> arguments) {
+		if (arguments.size() > 0) {
+			if (arguments.get(0).equals("-p")) {
 				if (playlists.size() > 0) {
 					System.out.println("$ " + playlists.get(0).getName());
 					for (int i = 1; i < playlists.size(); i++) {
@@ -75,25 +121,47 @@ public class Main {
 				} else {
 					System.out.println("$ No playlists");
 				}
-			} else if (command.equals("help")) {
-				if (parameters.size() == 0) {
-					System.out.println("$ List of Commands:");
-					System.out.println("$ mkpl [-n|-name] <arg>\n  ls");
-				} else {
-					// help of a particular command
-					if (parameters.get(0).equals("mkpl")) {
-						System.out.println("$ usage: mkpl [-n|-name] <name>");
-					} else if (parameters.get(0).equals("ls")) {
-						System.out.println("$ usage: ls");
-					} else if (parameters.get(0).equals("help")) {
-						System.out.println("$ usage: help\n         help <cmd>");
-					}
+			}
+		} else {
+			System.out.println("$ Insufficient arguments to list, See help ls for more information");
+		}
+	}
+
+	private void executeCommandMakePlaylist(List<String> arguments, List<String> parameters) {
+		if (arguments.size() == 0) {
+			// no args
+			System.out.println("$ Insufficient arguments to make playlist, See help mkpl for more information");
+		} else if (parameters.size() == 0) {
+			// no params
+			System.out.println("$ Insufficient parameters to make playlist, See help mkpl for more information");
+		} else {
+			// at least 1 arg and param
+			if (arguments.get(0).equals("-n") || arguments.get(0).equals("-name")) {
+				// good arg and param
+				String pName = parameters.get(0);
+				for (int i = 1; i < parameters.size(); i++) {
+					pName += " " + parameters.get(i);
 				}
+				playlists.add(new Playlist(pName));
 			} else {
-				// bad command entered
-				System.out.println("$ Unknown command, See help for more information");
+				// bad argument
+				System.out.println("$ Unknown argument");
+				System.out.println("$ usage: " + makePlaylistHelpString);
 			}
 		}
+	}
+
+	private String getParameterForArgument(String input, String argument) {
+		Scanner s = new Scanner(input);
+		s.useDelimiter(" ");
+		while (s.hasNext()) {
+			String arg = s.next();
+			if (arg.equals(argument)) {
+				if (s.hasNext())
+					return s.next();
+			}
+		}
+		return null;
 	}
 
 	private String getCommandAndArgumentsAndParameters(String input, List<String> arguments, List<String> parameters) {
