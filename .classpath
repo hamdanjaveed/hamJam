@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="/hamJam/src"/>
+	<classpathentry kind="lib" path="/Bionic Quacker/src/lib/lwjgl.jar"/>
+	<classpathentry kind="lib" path="/Bionic Quacker/src/lib/lwjgl_util.jar"/>
+	<classpathentry kind="lib" path="/Bionic Quacker/src/lib/slick.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

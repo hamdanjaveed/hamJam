@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component inherit-compiler-output="true" inheritJdk="true">
+	<output-test url="file://$MODULE_DIR$/out/test/hamJam"/>
+	<exclude-output/>
+	<contentEntry url="file://$MODULE_DIR$"/>
+	<lib name="$MODULE_DIR$/../Bionic Quacker/src/lib/lwjgl.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/../Bionic Quacker/src/lib/lwjgl.jar!/"/>
+	</lib>
+	<lib name="$MODULE_DIR$/../Bionic Quacker/src/lib/lwjgl_util.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/../Bionic Quacker/src/lib/lwjgl_util.jar!/"/>
+	</lib>
+	<lib name="$MODULE_DIR$/../Bionic Quacker/src/lib/slick.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/../Bionic Quacker/src/lib/slick.jar!/"/>
+	</lib>
+</component>

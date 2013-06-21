@@ -1,6 +1,7 @@
 package list;
 
 import list.node.Node;
+import song.Song;
 
 /*
  * A List is an object comprised of multiple Node objects. The List object
@@ -27,6 +28,19 @@ public class List<T> {
 	 * */
 	public void add(T element) {
 		add(new Node<T>(null, element));
+	}
+
+	public void addAt(T element, int index) {
+		if (index >= 0 && index < size()) {
+			Node<T> atIndexPrev = getNode(index);
+			Node<T> beforeIndexPrev = null;
+			if (index > 0) {
+				beforeIndexPrev = getNode(index - 1);
+			}
+			Node<T> newNode = new Node<T>(atIndexPrev, element);
+			if (beforeIndexPrev != null)
+				beforeIndexPrev.setNextNode(newNode);
+		}
 	}
 
 	/*
@@ -65,7 +79,7 @@ public class List<T> {
 	 * any other Node. Method returns null if the List does not contain any
 	 * Nodes.
 	 * */
-	private Node<T> getLastNode() {
+	public Node<T> getLastNode() {
 		Node<T> lastNode = headNode;
 		if (lastNode != null) {
 			while (lastNode.getNextNode() != null) {
@@ -99,12 +113,68 @@ public class List<T> {
 			while (n.getNextNode() != null) {
 				n = n.getNextNode();
 				e = n.getElement();
-				if (e.equals(n.getElement())) {
+				if (e.equals(element)) {
 					contains = true;
 				}
 			}
 		}
 		return contains;
+	}
+
+	public void remove(int index) {
+		if (index == 0) {
+			headNode = getNode(1);
+		} else {
+			Node<T> atIndex = getNode(index);
+			Node<T> prevIndex = getNode(index - 1);
+			prevIndex.setNextNode(atIndex.getNextNode());
+		}
+	}
+
+	public void removeByName(String name) {
+		int index = getIndexOfSong(name);
+		remove(index);
+	}
+
+	private int getIndexOfSong(String name) {
+		int index = 0;
+		for (int i = 0; i < size(); i++) {
+			T element = get(i);
+			if (element instanceof Song) {
+				Song s = (Song)element;
+				if (s.getNameOfSong().equals(name)) {
+					index = i;
+					break;
+				}
+			}
+		}
+		return index;
+	}
+
+	public void print() {
+		if (size() > 0) {
+			System.out.println("$ " + get(0).toString());
+			for (int i = 1; i < size(); i++) {
+				System.out.println("  " + get(i));
+			}
+		} else {
+			System.out.println("$ List contains no elements");
+		}
+	}
+
+	public Node<T> getNode(int index) {
+		Node<T> n = headNode;
+		if (index < size()) {
+			int cIndex = 0;
+			for (;cIndex != index; cIndex++) {
+				if (n.getNextNode() != null) {
+					n = n.getNextNode();
+				}
+			}
+			return n;
+		} else {
+			return null;
+		}
 	}
 
 	public T get(int index) {

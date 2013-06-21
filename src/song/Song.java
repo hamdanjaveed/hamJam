@@ -32,6 +32,10 @@ public class Song {
 		setRating(-1);
 	}
 
+	public String toString() {
+		return getNameOfSong();
+	}
+
 	public String getNameOfSong() {
 		return nameOfSong;
 	}
